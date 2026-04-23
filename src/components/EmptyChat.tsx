@@ -33,7 +33,8 @@ export default function EmptyChat() {
 
   return (
     <div className="flex flex-col gap-10 w-full h-full items-center justify-center">
-      <div className="p-8 -translate-y-10 text-5xl">{currentGreeting}</div>
+    <div className="flex flex-col gap-10 items-center justify-center pb-20">
+      <div className="p-8 text-5xl">{currentGreeting}</div>
 
       <div className="flex max-w-3/5 gap-3 justify-center flex-wrap">
         {listOfStarterPrompts.map((elm) => (
@@ -69,6 +70,7 @@ export default function EmptyChat() {
             />
           </button>
         </form>
+      </div>
       </div>
     </div>
   );
