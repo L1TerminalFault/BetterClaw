@@ -22,6 +22,7 @@ export default function ChatEach() {
   const { input, setInput, handleSubmit, handleInputChange, messages, isLoading } =
     useChat({ initialMessages, onFinish: (message) => {
 	  const idStr = id?.toString()
+	  if (!idStr) return;
 	  addMessagestoLocalSession(idStr, [message])
     }});
 
