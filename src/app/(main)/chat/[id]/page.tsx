@@ -47,6 +47,7 @@ export default function ChatEach() {
     if (!idStr) redirect(`/chat`);
 
     const currentSession = getSession(idStr);
+    if (!currentSession) return
     currentSession.messages = messages
     updateSession(currentSession)
   }, [messages, id]);
