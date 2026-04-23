@@ -36,7 +36,7 @@ export default function EmptyChat() {
     <div className="flex flex-col gap-10 max-lg:-translate-y-20 items-center justify-center pb-20">
       <div className="p-8 lg:text-5xl text-3xl text-center flex justify-center">{currentGreeting}</div>
 
-      <div className="flex max-w-3/5 gap-3 justify-center flex-wrap">
+      <div className="max-w-3/5 gap-3 hidden max-md:flex justify-center flex-wrap">
         {listOfStarterPrompts.map((elm) => (
           <div
             key={elm.id}
@@ -71,6 +71,19 @@ export default function EmptyChat() {
           </button>
         </form>
       </div>
+
+      <div className="flex max-w-3/5 md:hidden gap-3 justify-center flex-wrap">
+        {listOfStarterPrompts.map((elm) => (
+          <div
+            key={elm.id}
+            onClick={() => selectButton(elm)}
+            className="px-5 py-2 /max-w-[90%] max-lg:text-xs border border-white/5 shadow-md transition-colors shadow-black/40 hover:bg-white/10 bg-white/5 rounded-full"
+          >
+            {elm.title}
+          </div>
+        ))}
+      </div>
+
       </div>
     </div>
   );
