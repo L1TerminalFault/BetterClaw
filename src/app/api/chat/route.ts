@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   });
 
   const result = await streamText({
-    model: openrouter("openai/gpt-3.5-turbo-instruct"),
+    model: openrouter("openai/gpt-3.5-turbo-instruct") as any,
     messages,
     // onFinish({text}) {
     //   console.log(text)

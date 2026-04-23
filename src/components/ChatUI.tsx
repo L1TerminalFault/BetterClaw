@@ -253,7 +253,7 @@ export default function ChatUI({
   useEffect(() => {
     document
       .getElementById("chat-list")
-      .scroll({ behavior: "smooth", top: 1 });
+      ?.scroll({ behavior: "smooth", top: 1 });
   }, []);
 
   return (
