@@ -242,7 +242,7 @@ const messages = [
 ];
 
 export default function ChatUI({
-  //messages,
+  messages,
   isLoading,
   // currentChat,
 }: {
