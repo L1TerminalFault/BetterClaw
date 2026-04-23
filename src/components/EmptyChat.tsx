@@ -48,7 +48,7 @@ export default function EmptyChat() {
         ))}
       </div>
 
-      <div className="flex bg-white/5 w-3/5 focus-within:border-white/10 hover:border-white/6 transition-all focus-within:scale-102 border border-transparent max-w-450 rounded-full shadow-lg shadow-black/70 backdrop-blur-2xl">
+      <div className="flex bg-white/5 w-3/5 focus-within:border-white/10 hover:border-white/6 transition-all focus-within:scale-102 border border-transparent max-w-450 rounded-full shadow-lg shadow-black/30 backdrop-blur-2xl">
         <form onSubmit={addNewSession} className="w-full flex">
           <input
             id="input"
