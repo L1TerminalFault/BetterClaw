@@ -16,7 +16,7 @@ export default function TopBar() {
   return (
     <div className="fixed z-10 w-full top-0 p-6 left-0 flex justify-center">
       <div
-        className={`flex w-full items-center justify-between backdrop-blur-2xl bg-white/5 max-w-480 rounded-full shadow-lg shadow-black/80 p-2`}
+        className={`flex w-full items-center justify-between backdrop-blur-2xl bg-white/5 max-w-480 rounded-full shadow-lg shadow-black/50 p-2`}
       >
         <div
           className={`flex gap-3 ${animate ? "max-w-50" : "max-w-0"} transition-all duration-700 overflow-hidden items-center p-1 px-6`}
