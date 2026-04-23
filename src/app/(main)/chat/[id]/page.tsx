@@ -20,7 +20,10 @@ export default function ChatEach() {
   const [initChat, setInitChat] = useState(false)
   const [initialMessages, setInitialMessages] = useState<Message[]>([])
   const { input, setInput, handleSubmit, handleInputChange, messages, isLoading } =
-    useChat({ initialMessages });
+    useChat({ initialMessages, onFinish: (message) => {
+	  const idStr = id?.toString()
+	  addMessagestoLocalSession(idStr, [message])
+    }});
 
   // const feedContextToModel = async (prevChat: Message[]) => {
   //   setLoading(true);
@@ -42,14 +45,13 @@ export default function ChatEach() {
     }
   }, [])
 
+  useEffect(() => {console.log(initialMessages)}, [initialMessages])
+
   useEffect(() => {
     const idStr = id?.toString();
     if (!idStr) redirect(`/chat`);
 
-    const currentSession = getSession(idStr);
-    if (!currentSession) return
-    currentSession.messages = messages
-    updateSession(currentSession)
+    if (messages.length && messages[messages.length - 1].role === "user") addMessagestoLocalSession(idStr, [messages[messages.length - 1]])
   }, [messages, id]);
 
   useEffect(() => {

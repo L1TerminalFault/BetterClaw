@@ -2,6 +2,7 @@
 
 import { GiCrabClaw as Icon } from "react-icons/gi";
 import { useState, useEffect } from "react";
+import {Show, SignInButton, UserButton} from "@clerk/nextjs"
 
 export default function TopBar() {
   const [animate, setAnimate] = useState(false);
@@ -31,9 +32,26 @@ export default function TopBar() {
           <div className="bg-orange-500 blur-[2px] animate-pulse p-1"></div>
         </div>
 
+	<Show when="signed-out">
+	<SignInButton mode="modal">
         <div className="rounded-full px-6 py-2 bg-orange-600/90 transition-colors hover:bg-orange-500/50">
           Log in
         </div>
+	</SignInButton>
+	</Show>
+
+            <Show when="signed-in">
+              <UserButton
+                showName
+                appearance={{
+                  elements: {
+                    userButtonOuterIdentifier: {
+                      color: "gray",
+                    },
+                  },
+                }}
+              />
+            </Show>
       </div>
     </div>
   );

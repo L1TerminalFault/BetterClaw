@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
+import {dark} from "@clerk/themes";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -31,11 +34,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+      <ClerkProvider appearance={{
+	      theme: dark,
+      }}>
     <html
       lang="en"
       className={`${montserrat.className} ${geistSans.variable} ${geistMono.variable} flex h-full antialiased`}
     >
       <body className="min-h-full flex flex-col w-full">{children}</body>
     </html>
+      </ClerkProvider>
   );
 }
