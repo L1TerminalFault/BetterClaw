@@ -40,7 +40,7 @@ export default function EmptyChat() {
           <div
             key={elm.id}
             onClick={() => selectButton(elm)}
-            className="px-5 py-2 max-w-[70%] border border-white/5 shadow-md transition-colors shadow-black/40 hover:bg-white/10 bg-white/5 rounded-full"
+            className="px-5 py-2 max-w-[85%] border border-white/5 shadow-md transition-colors shadow-black/40 hover:bg-white/10 bg-white/5 rounded-full"
           >
             {elm.title}
           </div>
