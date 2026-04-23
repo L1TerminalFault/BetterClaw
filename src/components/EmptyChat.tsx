@@ -33,7 +33,7 @@ export default function EmptyChat() {
 
   return (
     <div className="flex flex-col gap-10 w-full h-full items-center justify-center">
-    <div className="flex flex-col gap-10 items-center justify-center pb-20">
+    <div className="flex flex-col gap-10 -translate-y-20 items-center justify-center pb-20">
       <div className="p-8 text-5xl">{currentGreeting}</div>
 
       <div className="flex max-w-3/5 gap-3 justify-center flex-wrap">
@@ -41,7 +41,7 @@ export default function EmptyChat() {
           <div
             key={elm.id}
             onClick={() => selectButton(elm)}
-            className="px-5 py-2 max-w-[85%] border border-white/5 shadow-md transition-colors shadow-black/40 hover:bg-white/10 bg-white/5 rounded-full"
+            className="px-5 py-2 max-w-[90%]/ border border-white/5 shadow-md transition-colors shadow-black/40 hover:bg-white/10 bg-white/5 rounded-full"
           >
             {elm.title}
           </div>
