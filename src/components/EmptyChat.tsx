@@ -34,7 +34,7 @@ export default function EmptyChat() {
   return (
     <div className="flex flex-col gap-10 w-full h-full items-center justify-center">
     <div className="flex flex-col gap-10 -translate-y-50 items-center justify-center pb-20">
-      <div className="p-8 lg:text-5xl text-3xl text-center">{currentGreeting}</div>
+      <div className="p-8 lg:text-5xl text-3xl text-center flex justify-center">{currentGreeting}</div>
 
       <div className="flex max-w-3/5 gap-3 justify-center flex-wrap">
         {listOfStarterPrompts.map((elm) => (
