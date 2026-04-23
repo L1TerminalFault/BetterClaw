@@ -36,7 +36,7 @@ export default function EmptyChat() {
     <div className="flex flex-col gap-10 items-center justify-center pb-20">
       <div className="lg:p-8 p-4 lg:text-5xl text-3xl text-center flex justify-center">{currentGreeting}</div>
 
-      <div className="max-w-3/5 gap-3 flex max-md:hidden justify-center flex-wrap">
+      <div className="lg:max-w-3/5 gap-3 flex max-md:hidden justify-center flex-wrap">
         {listOfStarterPrompts.map((elm) => (
           <div
             key={elm.id}
