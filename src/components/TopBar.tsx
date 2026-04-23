@@ -40,7 +40,7 @@ export default function TopBar() {
 	</SignInButton>
 	</Show>
 
-            <Show when="signed-in">
+            <Show when="signed-in" className='p-2'>
               <UserButton
                 showName
                 appearance={{
