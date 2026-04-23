@@ -41,7 +41,7 @@ export default function TopBar() {
 	</Show>
 
             <Show when="signed-in">
-	    <div className="p-2">
+	    <div className="px-2">
               <UserButton
                 showName
                 appearance={{
