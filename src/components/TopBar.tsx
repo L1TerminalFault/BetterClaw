@@ -40,7 +40,8 @@ export default function TopBar() {
 	</SignInButton>
 	</Show>
 
-            <Show when="signed-in" className='p-2'>
+            <Show when="signed-in">
+	    <div className="p-2">
               <UserButton
                 showName
                 appearance={{
@@ -51,6 +52,7 @@ export default function TopBar() {
                   },
                 }}
               />
+	      </div>
             </Show>
       </div>
     </div>
