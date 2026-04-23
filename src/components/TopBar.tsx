@@ -14,7 +14,7 @@ export default function TopBar() {
   }, []);
 
   return (
-    <div className="fixed z-10 w-full top-0 p-6 left-0 flex justify-center">
+    <div className="fixed z-10 w-full top-0 z-40 p-6 left-0 flex justify-center">
       <div
         className={`flex w-full items-center justify-between backdrop-blur-2xl bg-white/5 max-w-480 rounded-full shadow-lg shadow-black/30 p-2`}
       >
