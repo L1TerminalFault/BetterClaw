@@ -33,7 +33,7 @@ export default function SideBar() {
     <div className="absolute pointer-events-none top-0 left-0 py-30 lg:px-5 px-3 h-full z-30 flex flex-col items-center">
       <div
         id="draggable"
-        className={`flex flex-col rounded-3xl pointer-events-auto gap-3 ${expanded ? "min-h-100 max-h-300 w-75 p-4" : "translate-y-30 -translate-x-3 w-12.5 max-h-12.5 min-h-0 p-0"} bg-white/5 backdrop-blur-2xl shadow-lg shadow-black/30 transition-all duration-500 overflow-hidden`}
+        className={`flex flex-col rounded-3xl pointer-events-auto gap-3 ${expanded ? "min-h-100 max-h-300 w-75 p-4" : "translate-y-30 -translate-x-3 w-13 max-h-13 min-h-0 p-0"} bg-white/5 backdrop-blur-2xl shadow-lg shadow-black/30 transition-all duration-500 overflow-hidden`}
       >
         <div
           className={`flex items-center w-full justify-between text-white/60`}

@@ -78,7 +78,7 @@ export default function ChatEach() {
         <div>{error}</div>
       ) : (
         <>
-          <div className="flex flex-col p-3 overflow-scroll scrollbar-hidden max-w-7xl w-full h-full items-center justify-center">
+          <div className="flex flex-col p-3 overflow-scroll scrollbar-hidden max-w-6xl w-full h-full items-center justify-center">
             <ChatUI
               /* currentChat={chatList} */
               messages={messages}

@@ -72,7 +72,7 @@ export default function EmptyChat() {
         </form>
       </div>
 
-      <div className="max-w-3/5 md:hidden flex gap-3 justify-center flex-wrap">
+      <div className="max-w-5/6 md:hidden flex gap-3 justify-center flex-wrap">
         {listOfStarterPrompts.map((elm) => (
           <div
             key={elm.id}

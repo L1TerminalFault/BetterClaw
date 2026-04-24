@@ -3,6 +3,7 @@
 import { GiCrabClaw as Icon } from "react-icons/gi";
 import { useState, useEffect } from "react";
 import {Show, SignInButton, UserButton} from "@clerk/nextjs"
+import Link from "next/link";
 
 export default function TopBar() {
   const [animate, setAnimate] = useState(false);
@@ -14,10 +15,11 @@ export default function TopBar() {
   return (
     <div className="fixed z-10 w-full top-0 z-40 p-6 left-0 flex justify-center">
       <div
-        className={`flex w-full items-center justify-between backdrop-blur-2xl bg-white/8 max-w-480 rounded-full shadow-lg shadow-black/30 p-2`}
+        className={`flex w-full items-center justify-between backdrop-blur-2xl bg-white/8 max-w-350 rounded-full shadow-lg shadow-black/30 p-2`}
       >
-        <div
-          className={`flex gap-3 ${animate ? "max-w-50" : "max-w-0"} duration-2500 delay-1000 transition-all duration-700 overflow-hidden items-center p-1 px-6`}
+        <Link
+	  href="/chat"
+          className={`flex gap-3 ${animate ? "max-w-50" : "max-w-0"} rounded-full hover:bg-white/3 duration-2500 delay-1000 transition-all duration-700 overflow-hidden items-center p-1 px-6`}
         >
           <div className="flex gap-3 items-center">
             <Icon
@@ -28,9 +30,9 @@ export default function TopBar() {
             </div>
           </div>
           <div className="bg-orange-500 rounded-full blur-[1px] animate-pulse p-1"></div>
-        </div>
+        </Link>
 
-	{/* <Show when="signed-out">
+	<Show when="signed-out">
 	<SignInButton mode="modal">
         <div className="rounded-full px-6 py-2 bg-orange-600/90 transition-colors hover:bg-orange-500/50">
           Log in
@@ -51,7 +53,7 @@ export default function TopBar() {
                 }}
               />
 	      </div>
-            </Show> */}
+            </Show>
       </div>
     </div>
   );
