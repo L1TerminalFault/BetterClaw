@@ -13,8 +13,8 @@ export default function Onboard() {
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    // if (!isFirstTimeUsage()) redirect("/chat");
-    // else setNotFirstTime();
+    if (!isFirstTimeUsage()) redirect("/chat");
+    else setNotFirstTime();
     setLoading(false);
     if (!loading) setAnimate(true)
   }, [loading]);
