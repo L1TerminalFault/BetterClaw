@@ -1,4 +1,5 @@
 import { Message } from "ai";
+import { IconType } from "react-icons";
 
 export type Session = {
   id: string;
@@ -11,5 +12,5 @@ export type StarterPrompt = {
   id: number;
   title: string;
   prompt: string;
-  icon: React.ReactNode;
+  icon: IconType;
 };
