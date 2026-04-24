@@ -13,18 +13,18 @@ export default function Onboard() {
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-	  setAnimate(true)
-    if (!isFirstTimeUsage()) redirect("/chat");
-    else setNotFirstTime();
+    // if (!isFirstTimeUsage()) redirect("/chat");
+    // else setNotFirstTime();
     setLoading(false);
-  }, []);
+    if (!loading) setAnimate(true)
+  }, [loading]);
 
   return (
     <div className="flex w-full h-full p-10 items-center justify-center">
       {loading ? (
         <FaCircleNotch className="animate-spin size-10 text-gray-300" />
       ) : (
-        <div className="flex lg:p-15 max-lg:flex-col w-full max-w-300 p-10 gap-10 items-center justify-center border-1 bg-white/1 rounded-4xl border-white/4 shadow-lg shadow-black/50">
+        <div className={`${animate ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"} duration-500 flex lg:p-15 max-lg:flex-col w-full max-w-350 p-10 gap-10 items-center justify-center border-1 bg-white/3 rounded-4xl border-white/6 shadow-lg shadow-black/30`}>
           <div className="flex flex-col w-full gap-4">
             <div className="flex gap-5 items-center">
               <GiCrabClaw className={`lg:size-20 size-15 text-orange-600 transition-all`} />
@@ -44,7 +44,7 @@ export default function Onboard() {
             <div className="flex gap-3">
               <Link
                 href="/chat"
-                className="px-5 py-3 rounded-full border-1 border-gray-600 bg-orange-600 transition-colors hover:bg-orange-700"
+                className="px-5 py-3 rounded-full border-1 border-gray-600 bg-orange-700 transition-colors hover:bg-orange-800"
               >
                 Start a Chat
               </Link>

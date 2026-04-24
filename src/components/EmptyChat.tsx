@@ -33,10 +33,10 @@ export default function EmptyChat() {
 
   return (
     <div className="flex flex-col gap-10 w-full h-full items-center justify-center">
-    <div className="flex flex-col gap-10 max-lg:-translate-y-20 items-center justify-center pb-20">
-      <div className="p-8 lg:text-5xl text-3xl text-center flex justify-center">{currentGreeting}</div>
+    <div className="flex flex-col gap-10 /max-lg:-translate-y-20 items-center justify-center pb-20">
+      <div className="md:p-8 lg:text-5xl text-3xl text-center flex justify-center">{currentGreeting}</div>
 
-      <div className="max-w-3/5 gap-3 hidden max-md:flex justify-center flex-wrap">
+      <div className="max-w-3/5 gap-3 hidden md:flex justify-center flex-wrap">
         {listOfStarterPrompts.map((elm) => (
           <div
             key={elm.id}
@@ -48,7 +48,7 @@ export default function EmptyChat() {
         ))}
       </div>
 
-      <div className="flex bg-white/5 w-3/5 focus-within:border-white/10 hover:border-white/6 transition-all focus-within:scale-102 border border-transparent max-w-450 rounded-full shadow-lg shadow-black/30 backdrop-blur-2xl">
+      <div className="flex bg-white/5 w-3/5 focus-within:border-white/10 hover:border-white/6 transition-all focus-within:scale-102 border border-transparent max-w-450 min-w-120 rounded-full shadow-lg shadow-black/30 backdrop-blur-2xl">
         <form onSubmit={addNewSession} className="w-full flex">
           <input
             id="input"
@@ -72,7 +72,7 @@ export default function EmptyChat() {
         </form>
       </div>
 
-      <div className="flex max-w-3/5 md:hidden gap-3 justify-center flex-wrap">
+      <div className="max-w-3/5 md:hidden flex gap-3 justify-center flex-wrap">
         {listOfStarterPrompts.map((elm) => (
           <div
             key={elm.id}
