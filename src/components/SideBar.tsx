@@ -23,7 +23,8 @@ export default function SideBar() {
     redirect(`/chat/${id}`);
   };
 
-  const handleDeleteSession = (id: string) => {
+  const handleDeleteSession = (id: string, e: any) => {
+    e.stopPropagation();
     deleteSession(id);
     setUpdateSessions(prev => !prev);
     redirect("/chat/")
@@ -88,7 +89,7 @@ export default function SideBar() {
                   {session.title}
                 </div>
                 <div className="relative group-hover:opacity-100 opacity-0 p-2 transition-all rounded-full hover:bg-white/5">
-                  <Delete onClick={() => handleDeleteSession(session.id)} className="size-5 text-white/60" />
+                  <Delete onClick={(e) => handleDeleteSession(session.id, e)} className="size-5 text-white/60" />
                 </div>
               </div>
             ))

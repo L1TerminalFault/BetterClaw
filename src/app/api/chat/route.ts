@@ -1,16 +1,17 @@
 // import { openai } from "@ai-sdk/openai";
 import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import { streamText } from "ai";
+import { models } from "@/lib/gen-utils";
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
+  const { messages, model } = await req.json();
 
   const openrouter = createOpenRouter({
     apiKey: process.env.OPENROUTER_API_KEY,
   });
 
   const result = await streamText({
-    model: openrouter("openai/gpt-3.5-turbo-instruct") as any,
+    model: openrouter(models[2]) as any,
     messages,
     // onFinish({text}) {
     //   console.log(text)

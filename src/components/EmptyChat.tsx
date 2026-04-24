@@ -44,6 +44,7 @@ export default function EmptyChat() {
             onClick={() => selectButton(elm)}
             className="px-5 py-2 flex gap-3 items-center max-lg:text-xs border border-white/5 shadow-md transition-colors shadow-black/40 hover:bg-white/10 bg-white/5 rounded-full"
           >
+	    <elm.icon />
             {elm.title}
           </div>
         ))}

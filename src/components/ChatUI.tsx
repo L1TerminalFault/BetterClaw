@@ -254,7 +254,7 @@ export default function ChatUI({
     const scrollElm = document
       .getElementById("chat-list")
       
-      scrollElm.scrollTo({ behavior: "smooth", top: scrollElm.scrollHeight, });
+      scrollElm?.scrollTo({ behavior: "smooth", top: scrollElm.scrollHeight, });
   }, [messages]);
 
   return (
@@ -271,9 +271,9 @@ export default function ChatUI({
             ))}
             <div className={`${isLoading ? "" : "hidden"} flex w-full`}>
               <div className="flex gap-1 p-3 rounded-full bg-white/5 rounded-bl-sm">
-                <div className="p-0.5 animate-pulse delay-300 bg-white/35" />
-                <div className="p-0.5 animate-pulse delay-600 bg-white/35" />
-                <div className="p-0.5 animate-pulse delay-900 bg-white/35" />
+                <div className="p-0.5 animate-pulse rounded-full delay-300 bg-white/35" />
+                <div className="p-0.5 animate-pulse rounded-full delay-600 bg-white/35" />
+                <div className="p-0.5 animate-pulse rounded-full delay-900 bg-white/35" />
               </div>
             </div>
           </div>
