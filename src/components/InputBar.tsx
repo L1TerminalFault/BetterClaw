@@ -28,7 +28,7 @@ export default function InputBar({
 
   return (
     <div className="absolute bottom-0 left-0 z-20 w-full px-10 pb-10 flex items-center justify-center">
-      <div className="flex w-full h-full bg-white/5 focus-within:border-white/10 hover:border-white/6 transition-all focus-within:scale-102 border border-transparent max-w-300 rounded-full shadow-lg shadow-black/30 backdrop-blur-2xl">
+      <div className="flex w-full h-full bg-white/5 focus-within:[box-shadow:0_0_20px_5px_rgba(234,88,12,0.1)]/ focus-within:border-white/10 hover:border-white/6 transition-all focus-within:scale-102 border border-transparent max-w-300 rounded-full shadow-lg shadow-black/30 backdrop-blur-2xl">
         <form onSubmit={handleSubmitAction} className="w-full flex">
           <input
             type="text"

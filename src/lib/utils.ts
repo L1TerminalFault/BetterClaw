@@ -54,6 +54,11 @@ export const addMessagestoLocalSession = (id: string, messages: Message[]) => {
   updateSession(currentSession);
 };
 
+export const deleteSession = (id: string) => {
+  const sessions = getLocalSessions().filter((session) => session.id !== id )
+  setLocalSessions(sessions);
+}
+
 export const isFirstTimeUsage = () => {
   return localStorage.getItem("__betterclaw_not_first_time__") ? false : true
 };

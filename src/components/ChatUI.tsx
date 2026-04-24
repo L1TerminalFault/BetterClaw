@@ -251,22 +251,19 @@ export default function ChatUI({
   // currentChat: Message[];
 }) {
   useEffect(() => {
-    document
+    const scrollElm = document
       .getElementById("chat-list")
-      ?.scroll({ behavior: "smooth", top: 1 });
-  }, []);
+      
+      scrollElm.scrollTo({ behavior: "smooth", top: scrollElm.scrollHeight, });
+  }, [messages]);
 
   return (
-    <div className="flex w-full h-full gap-3 items-center flex-col justify-end">
-      <div className="flex flex-col gap-4 p-3 overflow-scroll scrollbar-hidden w-full /h-full max-h-max">
-        {/* {currentChat.map((each) => ( */}
-        {/*   <div key={each.id} className="p-10 bg-white/4"> */}
-        {/*     {each.content} */}
-        {/*   </div> */}
-        {/* ))} */}
+    <div className="flex max-w-6/7 w-full h-full gap-3 items-center flex-col justify-end">
+      <div
+            id="chat-list"
+      className="flex flex-col gap-4 p-3 overflow-scroll scrollbar-hidden w-full /h-full max-h-max">
         <div className="flex h-full">
           <div
-            id="chat-list"
             className="flex flex-col min-h-full justify-end/ w-full pt-20 pb-30 h-max gap-1"
           >
             {messages.map((message) => (

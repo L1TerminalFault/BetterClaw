@@ -36,19 +36,20 @@ export default function EmptyChat() {
     <div className="flex flex-col gap-10 /max-lg:-translate-y-20 items-center justify-center pb-20">
       <div className="md:p-8 lg:text-5xl text-3xl text-center flex justify-center">{currentGreeting}</div>
 
-      <div className="max-w-3/5 gap-3 hidden md:flex justify-center flex-wrap">
+      <div className="flex md:flex-col items-center max-md:flex-col-reverse gap-10">
+      <div className="md:max-w-3/5 gap-3 flex justify-center flex-wrap">
         {listOfStarterPrompts.map((elm) => (
           <div
             key={elm.id}
             onClick={() => selectButton(elm)}
-            className="px-5 py-2 /max-w-[90%] max-lg:text-xs border border-white/5 shadow-md transition-colors shadow-black/40 hover:bg-white/10 bg-white/5 rounded-full"
+            className="px-5 py-2 flex gap-3 items-center max-lg:text-xs border border-white/5 shadow-md transition-colors shadow-black/40 hover:bg-white/10 bg-white/5 rounded-full"
           >
             {elm.title}
           </div>
         ))}
       </div>
 
-      <div className="flex bg-white/5 w-3/5 focus-within:border-white/10 hover:border-white/6 transition-all focus-within:scale-102 border border-transparent max-w-450 min-w-120 rounded-full shadow-lg shadow-black/30 backdrop-blur-2xl">
+      <div className="flex bg-white/5 w-3/5 focus-within:border-white/10 /focus-within:[box-shadow:0_0_20px_5px_rgba(234,88,12,0.1)] hover:border-white/6 transition-all focus-within:scale-102 border border-transparent max-w-450 max-md:min-w-120 max-sm:min-w-full rounded-full shadow-lg shadow-black/30 backdrop-blur-2xl">
         <form onSubmit={addNewSession} className="w-full flex">
           <input
             id="input"
@@ -71,17 +72,6 @@ export default function EmptyChat() {
           </button>
         </form>
       </div>
-
-      <div className="max-w-5/6 md:hidden flex gap-3 justify-center flex-wrap">
-        {listOfStarterPrompts.map((elm) => (
-          <div
-            key={elm.id}
-            onClick={() => selectButton(elm)}
-            className="px-5 py-2 /max-w-[90%] max-lg:text-xs border border-white/5 shadow-md transition-colors shadow-black/40 hover:bg-white/10 bg-white/5 rounded-full"
-          >
-            {elm.title}
-          </div>
-        ))}
       </div>
 
       </div>

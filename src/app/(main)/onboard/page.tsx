@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { redirect } from "next/navigation";
 import { FaCircleNotch } from "react-icons/fa";
 import { GiCrabClaw } from "react-icons/gi";
@@ -11,13 +11,19 @@ import { isFirstTimeUsage, setNotFirstTime } from "@/lib/utils";
 export default function Onboard() {
   const [loading, setLoading] = useState(true);
   const [animate, setAnimate] = useState(false);
+  const hasRun = useRef(false);
 
   useEffect(() => {
+	  if (hasRun.current) return;
     if (!isFirstTimeUsage()) redirect("/chat");
     else setNotFirstTime();
+    hasRun.current = true;
+  }, []);
+
+  useEffect(() => {
     setLoading(false);
     if (!loading) setAnimate(true)
-  }, [loading]);
+  }, [loading])
 
   return (
     <div className="flex w-full h-full p-10 items-center justify-center">

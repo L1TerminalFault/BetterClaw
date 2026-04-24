@@ -7,27 +7,34 @@ import {
   TbLayoutSidebarLeftExpand,
   TbLayoutSidebarRightExpand,
 } from "react-icons/tb";
-import { TbDots } from "react-icons/tb";
+import { MdOutlineDelete as Delete } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
 
-import { getLocalSessions } from "@/lib/utils";
+import { getLocalSessions, deleteSession } from "@/lib/utils";
 import { Session } from "@/lib/types";
 
 export default function SideBar() {
   const [expanded, setExpanded] = useState<boolean>(true);
   const [sessions, setSessions] = useState<Session[]>([]);
+  const [updateSessions, setUpdateSessions] = useState(false);
   const pathname = usePathname();
 
   const handleClick = async (id: string) => {
     redirect(`/chat/${id}`);
   };
 
+  const handleDeleteSession = (id: string) => {
+    deleteSession(id);
+    setUpdateSessions(prev => !prev);
+    redirect("/chat/")
+  }
+
   useEffect(() => {
     setSessions(getLocalSessions());
 
     if (window.innerWidth < 1024)
       document.getElementById("expander-button")?.click();
-  }, [pathname]);
+  }, [pathname, updateSessions]);
 
   return (
     <div className="absolute pointer-events-none top-0 left-0 py-30 lg:px-5 px-3 h-full z-30 flex flex-col items-center">
@@ -80,8 +87,8 @@ export default function SideBar() {
                 <div className="overflow-scroll text-nowrap scrollbar-hidden pr-2">
                   {session.title}
                 </div>
-                <div className="group-hover:opacity-100 opacity-0 p-2 transition-colors rounded-full hover:bg-white/5">
-                  <TbDots className="size-5" />
+                <div className="relative group-hover:opacity-100 opacity-0 p-2 transition-all rounded-full hover:bg-white/5">
+                  <Delete onClick={() => handleDeleteSession(session.id)} className="size-5 text-white/60" />
                 </div>
               </div>
             ))

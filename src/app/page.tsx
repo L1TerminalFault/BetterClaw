@@ -9,11 +9,9 @@ export default function Home() {
 
   useEffect(() => {
     setAnimate(true)
-    const timeoutId = setTimeout(() => {
-      redirect("/onboard")
-    }, 3000)
+    const redirectTimeout = setTimeout(() => redirect("/onboard"), 3000);
 
-    return () => clearTimeout(timeoutId)
+    return () => clearTimeout(redirectTimeout);
   }, [])
 
   return (
