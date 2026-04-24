@@ -51,13 +51,13 @@ export default function SideBar() {
           >
             {expanded ? (
               <TbLayoutSidebarRightExpand
-                className="rounded-full transition-colors hover:bg-white/5 p-2"
-                size={33}
+                className="rounded-full transition-colors hover:bg-white/5 /size-5 p-2"
+                size={35}
               />
             ) : (
               <TbLayoutSidebarLeftExpand
-                className="rounded-full transition-colors hover:bg-white/5 p-2"
-                size={33}
+                className="rounded-full transition-colors /size-5 hover:bg-white/5 p-2"
+                size={35}
               />
             )}
           </div>
