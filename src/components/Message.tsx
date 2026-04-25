@@ -19,10 +19,10 @@ export default function Message({
         <div className="p-0.5 rounded-full bg-white/7" />
       </div>
     );
-  else
+  else if (message.role === "assistant")
     return (
       <div className="flex flex-col gap-1.5 w-full items-start">
-        <div className="flex px-6 py-3 max-w-2/3 ml-3 rounded-bl-sm overflow-scroll scrollbar-hidden bg-orange-300/4 rounded-3xl">
+        <div className="flex px-6 py-3 max-w-5/6 ml-3 rounded-bl-sm overflow-x-auto scrollbar-custom bg-orange-300/4 rounded-3xl">
 	<div
 	  className="prose prose-slate dark:prose-invert max-w-none"
 	>
@@ -65,4 +65,7 @@ export default function Message({
         <div className="p-0.5 rounded-full bg-orange-500/10" />
       </div>
     );
+      else
+        return
+          <div className="text-white/70 bg-red-500/20 rounded-3xl">{message.content}</div>
 }

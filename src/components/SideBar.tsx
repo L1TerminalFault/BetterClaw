@@ -72,7 +72,7 @@ export default function SideBar() {
         </div>
 
         <div
-          className={`flex flex-col-reverse pb-1 gap-0 ${expanded ? "opacity-100" : "opacity-0"} transition-all duration-500 scrollbar-hidden overflow-scroll w-full h-full`}
+          className={`flex flex-col-reverse pb-1 gap-0 ${expanded ? "opacity-100" : "opacity-0"} transition-all duration-500 scrollbar-custom overflow-y-auto w-full h-full`}
         >
           {!sessions.length ? (
             <div className="py-14 h-full w-full text-white/50 flex justify-center">
