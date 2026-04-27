@@ -9,6 +9,7 @@ import {
 } from "react-icons/tb";
 import { MdOutlineDelete as Delete } from "react-icons/md";
 import { FaPlus } from "react-icons/fa";
+import { useUser } from "@clerk/nextjs";
 
 import { getLocalSessions, deleteSession } from "@/lib/utils";
 import { Session } from "@/lib/types";
@@ -18,6 +19,7 @@ export default function SideBar() {
   const [sessions, setSessions] = useState<Session[]>([]);
   const [updateSessions, setUpdateSessions] = useState(false);
   const pathname = usePathname();
+  const { isSignedIn } = useUser();
 
   const handleClick = async (id: string) => {
     redirect(`/chat/${id}`);
@@ -49,7 +51,10 @@ export default function SideBar() {
           <div
             className={`pl-3 transition-all duration-1000 ${expanded ? "opacity-100" : "opacity-0"}`}
           >
-            Chats
+            Chats -{" "}
+            <span className="text-xs text-white/40">
+              {isSignedIn ? "Remote Database" : "Local"}
+            </span>
           </div>
 
           <div
