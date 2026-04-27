@@ -101,6 +101,7 @@ export default function ChatEach() {
     const idStr = id?.toString();
     if (!idStr) redirect(`/chat`);
 
+    if (localSession) {
     const currentChat = getSession(idStr)?.messages;
     if (!currentChat) redirect(`/chat`);
 
@@ -108,6 +109,7 @@ export default function ChatEach() {
 
     (() => setInitialMessages(currentChat))();
     return (() => setLoading(false))();
+    }
   }, [id]);
 
   return (

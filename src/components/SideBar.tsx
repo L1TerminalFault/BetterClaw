@@ -48,6 +48,7 @@ export default function SideBar() {
       const res = await (await fetch("/api/getRemoteSessions")).json();
       setSessions(res);
     } catch {
+      setLocalSession(true)
     } finally {
       setLoading(false);
     }
@@ -66,6 +67,11 @@ export default function SideBar() {
   };
 
   useEffect(() => {
+    if (window.innerWidth < 1024)
+      document.getElementById("expander-button")?.click();
+  }, [])
+
+  useEffect(() => {
     // INFO: To prevent cascading renders
     (() => {
       if (isSignedIn && !localSession) getRemoteSessions();
@@ -79,8 +85,6 @@ export default function SideBar() {
     const scrollElm = document.getElementById("scrollable");
     scrollElm?.scrollTo({ behavior: "smooth", top: 0, });
 
-    if (window.innerWidth < 1024)
-      document.getElementById("expander-button")?.click();
   }, [pathname, updateSessions, isSignedIn, localSession]);
 
   return (

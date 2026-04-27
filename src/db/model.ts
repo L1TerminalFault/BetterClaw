@@ -78,7 +78,7 @@ export const addSession = async ({ id, clerkId, title }: RemoteSession) => {
 };
 
 export const deleteSession = async (sessionId: string) => {
-  Session.findOneAndDelete({ id: sessionId });
+  await Session.findOneAndDelete({ id: sessionId });
 };
 
 // export const addMessage = async ({

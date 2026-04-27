@@ -16,6 +16,9 @@ export const GET = async () => {
   const userSessions: RemoteSession[] = await SessionModel.find({
     clerkId: userId,
   });
+
+  if (!userSessions.length) return Response.json([])
+
   const userMessages: RemoteMessage[] = await MessageModel.find({
     clerkId: userSessions[0].clerkId,
   });

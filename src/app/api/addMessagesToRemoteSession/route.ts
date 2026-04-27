@@ -16,4 +16,5 @@ export const POST = async (req: Request) => {
   );
 
   await MessageModel.create(newMessages);
+  return Response.json("ok")
 };
