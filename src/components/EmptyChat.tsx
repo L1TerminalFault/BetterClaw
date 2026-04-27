@@ -8,10 +8,11 @@ import { createNewLocalSession } from "@/lib/utils";
 import { listOfStarterPrompts, getRandomGreeting } from "@/lib/gen-utils";
 import { StarterPrompt } from "@/lib/types";
 
-const currentGreeting = getRandomGreeting()
+// const currentGreeting = getRandomGreeting()
 
 export default function EmptyChat() {
   const [textInput, setTextInput] = useState("");
+  const [currentGreeting, setCurrentGreeting] = useState("");
 
   const addNewSession = async (e: FormEvent<HTMLFormElement> | string) => {
     if (typeof e !== "string") e.preventDefault()
@@ -27,8 +28,8 @@ export default function EmptyChat() {
   };
 
   useEffect(() => {
-    // TODO: Add a new session then redirect to it
     document.getElementById("input")?.focus()
+    setCurrentGreeting(getRandomGreeting());
   }, [])
 
   return (

@@ -8,7 +8,9 @@ import {
   TbLayoutSidebarRightExpand,
 } from "react-icons/tb";
 import { MdOutlineDelete as Delete } from "react-icons/md";
-import { FaPlus, FaCircleNotch, FaCloud, FaDatabase } from "react-icons/fa";
+import { FaPlus as Plus, FaCircleNotch } from "react-icons/fa6";
+import { LuServer as RemoteIcon } from "react-icons/lu";
+import { MdOutlineDevices as LocalIcon } from "react-icons/md";
 import { useUser } from "@clerk/nextjs";
 
 import { getLocalSessions, deleteSession } from "@/lib/utils";
@@ -74,6 +76,9 @@ export default function SideBar() {
       }
     })();
 
+    const scrollElm = document.getElementById("scrollable");
+    scrollElm?.scrollTo({ behavior: "smooth", top: 0, });
+
     if (window.innerWidth < 1024)
       document.getElementById("expander-button")?.click();
   }, [pathname, updateSessions, isSignedIn, localSession]);
@@ -82,13 +87,13 @@ export default function SideBar() {
     <div className="absolute pointer-events-none top-0 left-0 py-30 lg:px-5 px-3 h-full z-30 flex flex-col items-center">
       <div
         id="draggable"
-        className={`flex flex-col rounded-3xl pointer-events-auto gap-3 ${expanded ? "min-h-100 max-h-300 w-75 p-4" : "translate-y-30 -translate-x-3 w-13 max-h-13 min-h-0 p-0"} bg-white/5 backdrop-blur-2xl shadow-lg shadow-black/30 transition-all duration-500 overflow-hidden`}
+        className={`flex flex-col rounded-3xl pointer-events-auto gap-3 ${expanded ? "min-h-100 max-h-300 w-75 p-4" : "translate-y-30 -translate-x-3 w-12 max-h-12 min-h-0 p-0"} bg-white/5 backdrop-blur-2xl shadow-lg shadow-black/30 transition-all duration-500 overflow-hidden`}
       >
         <div
           className={`flex items-center w-full justify-between text-white/60`}
         >
           <div
-            className={`pl-3 flex items-center justify-between pr-10 transition-all duration-1000 ${expanded ? "opacity-100" : "opacity-0"}`}
+            className={`pl-3 flex items-center justify-between w-full pr-10 transition-all duration-1000 ${expanded ? "opacity-100" : "opacity-0"}`}
           >
             <div>
               Chats -{" "}
@@ -96,39 +101,44 @@ export default function SideBar() {
                 {isSignedIn ? "Remote Database" : "Local"}
               </span>
             </div>
-            {localSession ? (
-              <FaDatabase
-                className="transition-all hover:bg-white/5 p-2 rounded-full"
-                size={35}
+	    <div
+	    onClick={() => setLocalSession(prev => !prev)}
+	    className="transition-colors hover:bg-white/5 -translate-y-1 rounded-full">
+            {!localSession ? (
+              <LocalIcon
+                className="p-2 size-9"
+                //size={35}
               />
             ) : (
-              <FaCloud
-                className="transition-all hover:bg-white/5 p-2 rounded-full"
-                size={35}
+              <RemoteIcon
+                className="p-2 size-9"
+                //size={35}
               />
             )}
+	    </div>
           </div>
 
           <div
             id="expander-button"
             onClick={() => setExpanded((prev) => !prev)}
-            className={`${expanded ? "right-3 top-3" : "right-1.5 top-1.5"} absolute transition-all duration-300`}
+            className={`${expanded ? "right-3 top-3" : "right-1.5 top-1.5"} absolute transition-all hover:bg-white/5 rounded-full duration-300`}
           >
             {expanded ? (
               <TbLayoutSidebarRightExpand
-                className="rounded-full transition-colors hover:bg-white/5 /size-5 p-2"
-                size={35}
+                className="size-9 p-2"
+                //size={3}
               />
             ) : (
               <TbLayoutSidebarLeftExpand
-                className="rounded-full transition-colors /size-5 hover:bg-white/5 p-2"
-                size={35}
+                className="size-9 p-2"
+                //size={35}
               />
             )}
           </div>
         </div>
 
         <div
+	  id="scrollable"
           className={`flex flex-col-reverse pb-1 gap-0 ${expanded ? "opacity-100" : "opacity-0"} transition-all duration-500 scrollbar-custom overflow-y-auto w-full h-full`}
         >
           {loading ? (
@@ -171,7 +181,7 @@ export default function SideBar() {
         >
           New chat{" "}
           <div className="p-2 transition-colors rounded-full hover:bg-white/5">
-            <FaPlus className="size-5" />
+            <Plus className="size-5" />
           </div>
         </Link>
       </div>

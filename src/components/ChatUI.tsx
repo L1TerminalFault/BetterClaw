@@ -195,7 +195,7 @@ const messages = [
   {
     id: 37,
     content:
-      "fjkfsddskfljjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",
+      "fjkfsddskfljjjjjjjjjjjjjjjjjjjjjjjjjjjjjjdfsdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",
     role: "assistant",
   },
   {
@@ -244,11 +244,9 @@ const messages = [
 export default function ChatUI({
   messages,
   isLoading,
-  // currentChat,
 }: {
   messages: Message[];
   isLoading: boolean;
-  // currentChat: Message[];
 }) {
   useEffect(() => {
     const scrollElm = document

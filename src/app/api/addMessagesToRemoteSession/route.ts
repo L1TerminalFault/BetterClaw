@@ -1,10 +1,12 @@
 import { auth } from "@clerk/nextjs/server";
 import { Message } from "ai";
 
-import { Message as MessageModel } from "@/db/model";
+import { Message as MessageModel, dbConnect } from "@/db/model";
 import { RemoteMessage } from "@/lib/types";
 
 export const POST = async (req: Request) => {
+  await dbConnect();
+
   const { sessionId, messages } = await req.json();
   const { userId } = await auth();
 
