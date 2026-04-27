@@ -6,54 +6,96 @@ import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 import { FaCircleNotch } from "react-icons/fa";
 import { Message } from "ai";
+import { useUser } from "@clerk/nextjs";
 
 import ChatUI from "@/components/ChatUI";
 import InputBar from "@/components/InputBar";
-import { Session } from "@/lib/types";
-import { getSession, updateSession, addMessagestoLocalSession } from "@/lib/utils";
+import { RemoteMessage } from "@/lib/types";
+import { getSession, addMessagestoLocalSession } from "@/lib/utils";
 
 export default function ChatEach() {
   const { id } = useParams();
+  const idStr = id?.toString();
   const params = useSearchParams();
+  const { user, isSignedIn } = useUser();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [initChat, setInitChat] = useState(false)
-  const [initialMessages, setInitialMessages] = useState<Message[]>([])
-  const { input, setInput, handleSubmit, handleInputChange, messages, isLoading } =
-    useChat({ initialMessages, onFinish: (message) => {
-	  const idStr = id?.toString()
-	  if (!idStr) return;
-	  addMessagestoLocalSession(idStr, [message])
-    }});
+  const [error, _] = useState<string | null>(null);
+  const [initChat, setInitChat] = useState(false);
+  const [initialMessages, setInitialMessages] = useState<Message[]>([]);
+  const {
+    input,
+    setInput,
+    handleSubmit,
+    handleInputChange,
+    messages,
+    isLoading,
+  } = useChat({
+    initialMessages,
+    onFinish: (message) => {
+      if (!idStr) return;
+      addMessagestoLocalSession(idStr, [message]);
+    },
+  });
 
-  // const feedContextToModel = async (prevChat: Message[]) => {
-  //   setLoading(true);
-  //   try {
-  //     // TODO: Handle feeding the context to the model through api call
-  //     // BUG: Assuming that giving context to the model will fill 'messages' state with the previous messages
-  //   } catch (err) {
-  //     setError(`Error: ${err}`);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const addMessagesToRemoteSession = async (
+    messages: RemoteMessage[],
+    sessionId?: string,
+  ) => {
+    if (!idStr) return;
 
-  useEffect(() => {
-    const initChat = params.get("init-chat")
-    if (initChat) {
-      setInput(initChat) 
-      setInitChat(true)
+    try {
+      await (
+        await fetch(`/api/addMessagesToRemoteSession`, {
+          method: "POST",
+          body: JSON.stringify({
+            sessionId,
+            messages,
+          }),
+        })
+      ).json();
+    } catch {
+    } finally {
     }
-  }, [])
-
-  useEffect(() => {console.log(initialMessages)}, [initialMessages])
+  };
 
   useEffect(() => {
-    const idStr = id?.toString();
+    const initChat = params.get("init-chat");
+    (() => {
+      if (initChat) {
+        setInput(initChat);
+        setInitChat(true);
+      }
+    })();
+  }, [params, setInput]);
+
+  useEffect(() => {
+    console.log(initialMessages);
+  }, [initialMessages]);
+
+  useEffect(() => {
+    // if (!user?.id) return;
+    if (!isSignedIn || !user?.id || !idStr) return;
+
+    (() =>
+      addMessagesToRemoteSession(
+        messages.map(({ id, role, content, createdAt }) => ({
+          id,
+          role,
+          content,
+          createdAt: new Date(createdAt || Date.now()),
+          sessionId: idStr,
+          clerkId: user.id,
+        })),
+        idStr,
+      ))();
+  }, [messages, idStr, user?.id, isSignedIn]);
+
+  useEffect(() => {
     if (!idStr) redirect(`/chat`);
 
-    if (messages.length && messages[messages.length - 1].role === "user") addMessagestoLocalSession(idStr, [messages[messages.length - 1]])
-  }, [messages, id]);
+    if (messages.length && messages[messages.length - 1].role === "user")
+      addMessagestoLocalSession(idStr, [messages[messages.length - 1]]);
+  }, [messages, idStr]);
 
   useEffect(() => {
     const idStr = id?.toString();
@@ -62,10 +104,10 @@ export default function ChatEach() {
     const currentChat = getSession(idStr)?.messages;
     if (!currentChat) redirect(`/chat`);
 
-    if (!currentChat.length) return setLoading(false);
+    if (!currentChat.length) return (() => setLoading(false))();
 
-    setInitialMessages(currentChat);
-    return setLoading(false);
+    (() => setInitialMessages(currentChat))();
+    return (() => setLoading(false))();
   }, [id]);
 
   return (
@@ -87,7 +129,7 @@ export default function ChatEach() {
           </div>
           <InputBar
             input={input}
-	    initChat={initChat}
+            initChat={initChat}
             handleSubmitAction={handleSubmit}
             handleInputChangeAction={handleInputChange}
           />

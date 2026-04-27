@@ -8,7 +8,7 @@ import {
   TbLayoutSidebarRightExpand,
 } from "react-icons/tb";
 import { MdOutlineDelete as Delete } from "react-icons/md";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaCircleNotch, FaCloud, FaDatabase } from "react-icons/fa";
 import { useUser } from "@clerk/nextjs";
 
 import { getLocalSessions, deleteSession } from "@/lib/utils";
@@ -18,6 +18,9 @@ export default function SideBar() {
   const [expanded, setExpanded] = useState<boolean>(true);
   const [sessions, setSessions] = useState<Session[]>([]);
   const [updateSessions, setUpdateSessions] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [localSession, setLocalSession] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const pathname = usePathname();
   const { isSignedIn } = useUser();
 
@@ -27,17 +30,53 @@ export default function SideBar() {
 
   const handleDeleteSession = (id: string, e: any) => {
     e.stopPropagation();
-    deleteSession(id);
-    setUpdateSessions((prev) => !prev);
+    if (isSignedIn && !localSession) {
+      deleteRemoteSession(id);
+    } else {
+      deleteSession(id);
+      setUpdateSessions((prev) => !prev);
+    }
+
     redirect("/chat/");
   };
 
+  const getRemoteSessions = async () => {
+    setLoading(true);
+    try {
+      const res = await (await fetch("/api/getRemoteSessions")).json();
+      setSessions(res);
+    } catch {
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteRemoteSession = async (sessionId: string) => {
+    setDeleting(true);
+
+    try {
+      await (await fetch(`/api/deleteRemoteSession?id=${sessionId}`)).json();
+      setSessions((prev) => prev.filter((session) => session.id !== sessionId));
+    } catch {
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   useEffect(() => {
-    setSessions(getLocalSessions());
+    // INFO: To prevent cascading renders
+    (() => {
+      if (isSignedIn && !localSession) getRemoteSessions();
+      else {
+        setSessions(getLocalSessions());
+        setLocalSession(true);
+        setLoading(false);
+      }
+    })();
 
     if (window.innerWidth < 1024)
       document.getElementById("expander-button")?.click();
-  }, [pathname, updateSessions]);
+  }, [pathname, updateSessions, isSignedIn, localSession]);
 
   return (
     <div className="absolute pointer-events-none top-0 left-0 py-30 lg:px-5 px-3 h-full z-30 flex flex-col items-center">
@@ -49,12 +88,25 @@ export default function SideBar() {
           className={`flex items-center w-full justify-between text-white/60`}
         >
           <div
-            className={`pl-3 transition-all duration-1000 ${expanded ? "opacity-100" : "opacity-0"}`}
+            className={`pl-3 flex items-center justify-between pr-10 transition-all duration-1000 ${expanded ? "opacity-100" : "opacity-0"}`}
           >
-            Chats -{" "}
-            <span className="text-xs text-white/40">
-              {isSignedIn ? "Remote Database" : "Local"}
-            </span>
+            <div>
+              Chats -{" "}
+              <span className="text-xs text-white/40">
+                {isSignedIn ? "Remote Database" : "Local"}
+              </span>
+            </div>
+            {localSession ? (
+              <FaDatabase
+                className="transition-all hover:bg-white/5 p-2 rounded-full"
+                size={35}
+              />
+            ) : (
+              <FaCloud
+                className="transition-all hover:bg-white/5 p-2 rounded-full"
+                size={35}
+              />
+            )}
           </div>
 
           <div
@@ -79,7 +131,11 @@ export default function SideBar() {
         <div
           className={`flex flex-col-reverse pb-1 gap-0 ${expanded ? "opacity-100" : "opacity-0"} transition-all duration-500 scrollbar-custom overflow-y-auto w-full h-full`}
         >
-          {!sessions.length ? (
+          {loading ? (
+            <div className="py-14 h-full w-full text-white/50 flex justify-center">
+              <FaCircleNotch className="text-white/30 animate-spin size-5" />
+            </div>
+          ) : !sessions.length ? (
             <div className="py-14 h-full w-full text-white/50 flex justify-center">
               No chats
             </div>
@@ -95,10 +151,14 @@ export default function SideBar() {
                   {session.title}
                 </div>
                 <div className="relative group-hover:opacity-100 opacity-0 p-2 transition-all rounded-full hover:bg-white/5">
-                  <Delete
-                    onClick={(e) => handleDeleteSession(session.id, e)}
-                    className="size-5 text-white/60"
-                  />
+                  {deleting ? (
+                    <FaCircleNotch className="size-5 text-white/60 animate-spin" />
+                  ) : (
+                    <Delete
+                      onClick={(e) => handleDeleteSession(session.id, e)}
+                      className="size-5 text-white/60"
+                    />
+                  )}
                 </div>
               </div>
             ))

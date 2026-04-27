@@ -1,7 +1,6 @@
 "use client";
 
 import { Message } from "ai";
-import { redirect } from "next/navigation";
 
 import { Session } from "./types";
 
@@ -55,12 +54,12 @@ export const addMessagestoLocalSession = (id: string, messages: Message[]) => {
 };
 
 export const deleteSession = (id: string) => {
-  const sessions = getLocalSessions().filter((session) => session.id !== id )
+  const sessions = getLocalSessions().filter((session) => session.id !== id);
   setLocalSessions(sessions);
-}
+};
 
 export const isFirstTimeUsage = () => {
-  return localStorage.getItem("__betterclaw_not_first_time__") ? false : true
+  return localStorage.getItem("__betterclaw_not_first_time__") ? false : true;
 };
 
 export const setNotFirstTime = () => {

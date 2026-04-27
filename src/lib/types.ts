@@ -14,3 +14,15 @@ export type StarterPrompt = {
   prompt: string;
   icon: IconType;
 };
+
+export type RemoteSession = {
+  id: string;
+  clerkId: string;
+  title: string;
+  createdAt: number;
+};
+
+export type RemoteMessage = Message & {
+  clerkId: string;
+  sessionId: string;
+};
