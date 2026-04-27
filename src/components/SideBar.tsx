@@ -91,7 +91,7 @@ export default function SideBar() {
                 className={`${pathname.includes(session.id) ? "bg-white/8" : ""} hover:bg-white/5 group pl-4 pr-1 py-1 gap-2 flex items-center justify-between rounded-2xl transition-colors`}
               >
                 <div className="relative overflow-scroll w-full text-nowrap scrollbar-hidden pr-2">
-                  <div className="absolute right-0 h-full bg-linear-to-r from-transparent bg-white/5 p-3" />
+                  {/* <div className="absolute right-0 h-full bg-linear-to-r from-transparent bg-white/5 p-3" /> */}
                   {session.title}
                 </div>
                 <div className="relative group-hover:opacity-100 opacity-0 p-2 transition-all rounded-full hover:bg-white/5">
