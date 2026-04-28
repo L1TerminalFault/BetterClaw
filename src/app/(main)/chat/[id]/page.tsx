@@ -21,7 +21,7 @@ export default function ChatEach() {
   const [initialMessages, setInitialMessages] = useState<Message[]>([]);
 
   const { user, isSignedIn } = useUser();
-  const { localSession, sessions, initChat: initText } = useStore();
+  const { localSession, sessions, initChat: initText, setInitChat: setInitText } = useStore();
   const { id } = useParams();
   const idStr = id?.toString();
 
@@ -95,6 +95,8 @@ export default function ChatEach() {
           idStr,
         );
       }
+
+      return () => setInitText(null);
   }, [setInput]);
 
   // useEffect(() => {
