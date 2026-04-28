@@ -84,7 +84,7 @@ export default function SideBar() {
     })();
 
     const scrollElm = document.getElementById("scrollable");
-    scrollElm?.scrollTo({ behavior: "smooth", top: scrollElm.scrollHeight });
+    scrollElm?.scrollTo({ behavior: "smooth", top: 0 });
   }, [pathname, updateSessions, isSignedIn, localSession]);
 
   return (
