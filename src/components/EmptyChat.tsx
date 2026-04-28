@@ -17,7 +17,7 @@ export default function EmptyChat() {
   const [textInput, setTextInput] = useState("");
   const [currentGreeting, setCurrentGreeting] = useState("");
   const [loading, setLoading] = useState(false);
-  const { localSession } = useStore();
+  const { localSession, setInitChat } = useStore();
   const { user } = useUser();
 
   const addNewSession = async (e: FormEvent<HTMLFormElement> | string) => {
@@ -27,8 +27,10 @@ export default function EmptyChat() {
       typeof e === "string" ? e : textInput,
     );
 
+    setInitChat(typeof e === "string" ? e : textInput);
+
     redirect(
-      `/chat/${newSessionId}?init-chat=${typeof e === "string" ? e : textInput}`,
+      `/chat/${newSessionId}`,
     );
   };
 
@@ -47,17 +49,21 @@ export default function EmptyChat() {
     };
 
     try {
-      await (
+      const res = await (
         await fetch("/api/addRemoteSession", {
           method: "POST",
           body: JSON.stringify(newSession),
         })
       ).json();
 
+      setInitChat(typeof e === "string" ? e : textInput);
+
       redirect(
-        `/chat/${id}?init-chat=${typeof e === "string" ? e : textInput}`,
+        `/chat/${id}`,
       );
-    } catch {
+      console.log(res)
+    } catch (err) {
+      console.log(err)
     } finally {
       setLoading(false);
     }

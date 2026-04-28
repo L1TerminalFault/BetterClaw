@@ -29,7 +29,7 @@ export const listOfStarterPrompts: StarterPrompt[] = [
   {
     id: 1,
     title: "Make a joke",
-    prompt: "Make a hilarious joke to make the me happy",
+    prompt: "Make a hilarious joke to make me happy",
     icon: Joke,
   },
   {

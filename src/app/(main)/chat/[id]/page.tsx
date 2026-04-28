@@ -70,13 +70,33 @@ export default function ChatEach() {
   );
 
   useEffect(() => {
+    if (!idStr) redirect(`/chat`);
     const initChat = params.get("init-chat");
+
     (() => {
       if (initChat) {
         setInput(initChat);
         setInitChat(true);
       }
     })();
+
+    if (messages.length && messages[messages.length - 1].role === "user")
+      if (localSession)
+        addMessagestoLocalSession(idStr, [messages[messages.length - 1]]);
+      else {
+        if (!user?.id) return;
+        addMessagesToRemoteSession(
+          messages.map(({ id, role, content, createdAt }) => ({
+            id,
+            role,
+            content,
+            createdAt: new Date(createdAt || Date.now()),
+            sessionId: idStr,
+            clerkId: user.id,
+          })),
+          idStr,
+        );
+      }
   }, [params, setInput]);
 
   // useEffect(() => {
@@ -98,28 +118,6 @@ export default function ChatEach() {
   useEffect(() => {
     if (!idStr) redirect(`/chat`);
 
-    if (messages.length && messages[messages.length - 1].role === "user")
-      if (localSession)
-        addMessagestoLocalSession(idStr, [messages[messages.length - 1]]);
-      else {
-        if (!user?.id) return;
-        addMessagesToRemoteSession(
-          messages.map(({ id, role, content, createdAt }) => ({
-            id,
-            role,
-            content,
-            createdAt: new Date(createdAt || Date.now()),
-            sessionId: idStr,
-            clerkId: user.id,
-          })),
-          idStr,
-        );
-      }
-  }, [messages, idStr, addMessagesToRemoteSession, localSession, user?.id]);
-
-  useEffect(() => {
-    if (!idStr) redirect(`/chat`);
-
     if (localSession) {
       const currentChat = getSession(idStr)?.messages;
       if (!currentChat) redirect(`/chat`);
@@ -131,9 +129,9 @@ export default function ChatEach() {
     } else {
       const currentSession = sessions.find((session) => session.id === idStr);
       if (!currentSession) return redirect("/chat");
-      setInitialMessages(currentSession?.messages);
+      (() => setInitialMessages(currentSession?.messages))();
     }
-  }, [id, localSession, idStr]);
+  }, [id, localSession, idStr, sessions]);
 
   return (
     <div className="flex w-full h-full items-center justify-center">

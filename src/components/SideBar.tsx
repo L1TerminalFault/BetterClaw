@@ -107,7 +107,7 @@ export default function SideBar() {
             </div>
             <div
               onClick={() => setLocalSession(!localSession)}
-              className="transition-colors hover:bg-white/5 -translate-y-1 rounded-full"
+              className="transition-colors hidden hover:bg-white/5 -translate-y-1 rounded-full"
             >
               {!localSession ? (
                 <LocalIcon
