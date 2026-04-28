@@ -77,7 +77,9 @@ export default function EmptyChat() {
   return (
     <div className="flex flex-col gap-10 w-full h-full items-center justify-center">
       {loading ? (
-        <FaCircleNotch className="" />
+        <div>
+          <FaCircleNotch className="size-10 animate-spin" />
+        </div>
       ) : (
         <div className="flex flex-col gap-10 /max-lg:-translate-y-20 items-center justify-center pb-20">
           <div className="md:p-8 lg:text-5xl text-3xl text-center flex justify-center">
