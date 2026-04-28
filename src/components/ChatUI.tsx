@@ -249,21 +249,19 @@ export default function ChatUI({
   isLoading: boolean;
 }) {
   useEffect(() => {
-    const scrollElm = document
-      .getElementById("chat-list")
-      
-      scrollElm?.scrollTo({ behavior: "smooth", top: scrollElm.scrollHeight, });
+    const scrollElm = document.getElementById("chat-list");
+
+    scrollElm?.scrollTo({ behavior: "smooth", top: scrollElm.scrollHeight });
   }, [messages]);
 
   return (
     <div className="flex max-w-6/7 w-full h-full gap-3 items-center flex-col justify-end">
       <div
-            id="chat-list"
-      className="flex flex-col gap-4 p-3 overflow-scroll scrollbar-hidden w-full /h-full max-h-max">
+        id="chat-list"
+        className="flex flex-col gap-4 p-3 overflow-scroll scrollbar-hidden w-full /h-full max-h-max"
+      >
         <div className="flex h-full">
-          <div
-            className="flex flex-col min-h-full justify-end/ w-full pt-20 pb-30 h-max gap-1"
-          >
+          <div className="flex flex-col min-h-full justify-end/ w-full pt-20 pb-30 h-max gap-1">
             {messages.map((message) => (
               <MessageElm key={message.id} message={message} />
             ))}
