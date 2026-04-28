@@ -84,8 +84,8 @@ export default function SideBar() {
     })();
 
     const scrollElm = document.getElementById("scrollable");
-    scrollElm?.scrollTo({ behavior: "smooth", top: 0 });
-  }, [pathname, updateSessions, isSignedIn, localSession]);
+    scrollElm?.scrollTo({ behavior: "smooth", top: -scrollElm.scrollHeight });
+  }, [updateSessions, isSignedIn, localSession]);
 
   return (
     <div className="absolute pointer-events-none top-0 left-0 py-30 lg:px-5 px-3 h-full z-30 flex flex-col items-center">
