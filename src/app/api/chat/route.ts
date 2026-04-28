@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   });
 
   const result = await streamText({
-    model: openrouter(models[2]) as any,
+    model: openrouter(models[5]) as any,
     messages,
     // onFinish({text}) {
     //   console.log(text)
