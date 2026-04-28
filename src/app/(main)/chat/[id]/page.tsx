@@ -144,7 +144,6 @@ export default function ChatEach() {
         <>
           <div className="flex flex-col p-3 overflow-scroll scrollbar-hidden max-w-6xl w-full h-full items-center justify-center">
             <ChatUI
-              /* currentChat={chatList} */
               messages={messages}
               isLoading={isLoading}
             />
