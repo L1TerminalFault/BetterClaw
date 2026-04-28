@@ -1,6 +1,5 @@
 "use client";
 
-import { Message as MessageType } from "ai";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -87,7 +86,12 @@ export default function Message({
                   remarkPlugins={[remarkGfm]}
                   components={{
                     // This function runs for every <code> tag found in the markdown
-                    code({ node, inline, className, children, ...props }: any) {
+                    code({
+                      /* node, */ inline,
+                      className,
+                      children,
+                      ...props
+                    }: any) {
                       const match = /language-(\w+)/.exec(className || "");
                       const language = match ? match[1] : "";
 
@@ -144,8 +148,10 @@ export default function Message({
         </div>
       </div>
     );
-  else return;
-  <div className="text-white/70 bg-red-500/20 rounded-3xl">
-    {message.content}
-  </div>;
+  else
+    return (
+      <div className="text-white/70 bg-red-500/20 rounded-3xl">
+        {message.content}
+      </div>
+    );
 }
