@@ -21,10 +21,9 @@ export default function ChatEach() {
   const [initialMessages, setInitialMessages] = useState<Message[]>([]);
 
   const { user, isSignedIn } = useUser();
-  const { localSession, sessions } = useStore();
+  const { localSession, sessions, initChat as initText } = useStore();
   const { id } = useParams();
   const idStr = id?.toString();
-  const params = useSearchParams();
 
   const {
     input,
@@ -71,11 +70,10 @@ export default function ChatEach() {
 
   useEffect(() => {
     if (!idStr) redirect(`/chat`);
-    const initChat = params.get("init-chat");
 
     (() => {
-      if (initChat) {
-        setInput(initChat);
+      if (initText) {
+        setInput(initText);
         setInitChat(true);
       }
     })();
@@ -97,7 +95,7 @@ export default function ChatEach() {
           idStr,
         );
       }
-  }, [params, setInput]);
+  }, [setInput]);
 
   // useEffect(() => {
   //   console.log(initialMessages);
@@ -130,6 +128,7 @@ export default function ChatEach() {
       const currentSession = sessions.find((session) => session.id === idStr);
       if (!currentSession) return redirect("/chat");
       (() => setInitialMessages(currentSession?.messages))();
+      return (() => setLoading(false))();
     }
   }, [id, localSession, idStr, sessions]);
 
