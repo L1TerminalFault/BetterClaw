@@ -14,19 +14,18 @@ import { MdOutlineDevices as LocalIcon } from "react-icons/md";
 import { useUser } from "@clerk/nextjs";
 
 import { getLocalSessions, deleteSession } from "@/lib/utils";
-import { Session } from "@/lib/types";
 import { useStore } from "@/lib/store";
 
 export default function SideBar() {
   const [expanded, setExpanded] = useState<boolean>(true);
-  const [sessions, setSessions] = useState<Session[]>([]);
+  // const [sessions, setSessions] = useState<Session[]>([]);
   const [updateSessions, setUpdateSessions] = useState(false);
   const [loading, setLoading] = useState(true);
   // const [localSession, setLocalSession] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const pathname = usePathname();
   const { isSignedIn } = useUser();
-  const { localSession, setLocalSession } = useStore();
+  const { localSession, setLocalSession, sessions, setSessions } = useStore();
 
   const handleClick = async (id: string) => {
     redirect(`/chat/${id}`);
@@ -50,7 +49,7 @@ export default function SideBar() {
       const res = await (await fetch("/api/getRemoteSessions")).json();
       setSessions(res);
     } catch {
-      setLocalSession(true)
+      setLocalSession(true);
     } finally {
       setLoading(false);
     }
@@ -61,7 +60,7 @@ export default function SideBar() {
 
     try {
       await (await fetch(`/api/deleteRemoteSession?id=${sessionId}`)).json();
-      setSessions((prev) => prev.filter((session) => session.id !== sessionId));
+      setSessions(sessions.filter((session) => session.id !== sessionId));
     } catch {
     } finally {
       setDeleting(false);
@@ -71,7 +70,7 @@ export default function SideBar() {
   useEffect(() => {
     if (window.innerWidth < 1024)
       document.getElementById("expander-button")?.click();
-  }, [])
+  }, []);
 
   useEffect(() => {
     // INFO: To prevent cascading renders
@@ -85,8 +84,7 @@ export default function SideBar() {
     })();
 
     const scrollElm = document.getElementById("scrollable");
-    scrollElm?.scrollTo({ behavior: "smooth", top: 0, });
-
+    scrollElm?.scrollTo({ behavior: "smooth", top: 0 });
   }, [pathname, updateSessions, isSignedIn, localSession]);
 
   return (
@@ -107,21 +105,22 @@ export default function SideBar() {
                 {!localSession ? "Remote Database" : "Local"}
               </span>
             </div>
-	    <div
-	    onClick={() => setLocalSession(!localSession)}
-	    className="transition-colors hover:bg-white/5 -translate-y-1 rounded-full">
-            {!localSession ? (
-              <LocalIcon
-                className="p-2 size-9"
-                //size={35}
-              />
-            ) : (
-              <RemoteIcon
-                className="p-2 size-9"
-                //size={35}
-              />
-            )}
-	    </div>
+            <div
+              onClick={() => setLocalSession(!localSession)}
+              className="transition-colors hover:bg-white/5 -translate-y-1 rounded-full"
+            >
+              {!localSession ? (
+                <LocalIcon
+                  className="p-2 size-9"
+                  //size={35}
+                />
+              ) : (
+                <RemoteIcon
+                  className="p-2 size-9"
+                  //size={35}
+                />
+              )}
+            </div>
           </div>
 
           <div
@@ -144,7 +143,7 @@ export default function SideBar() {
         </div>
 
         <div
-	  id="scrollable"
+          id="scrollable"
           className={`flex flex-col-reverse pb-1 gap-0 ${expanded ? "opacity-100" : "opacity-0"} transition-all duration-500 scrollbar-custom overflow-y-auto w-full h-full`}
         >
           {loading ? (

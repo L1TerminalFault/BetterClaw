@@ -21,7 +21,7 @@ export default function ChatEach() {
   const [initialMessages, setInitialMessages] = useState<Message[]>([]);
 
   const { user, isSignedIn } = useUser();
-  const { localSession } = useStore();
+  const { localSession, sessions } = useStore();
   const { id } = useParams();
   const idStr = id?.toString();
   const params = useSearchParams();
@@ -79,21 +79,21 @@ export default function ChatEach() {
     })();
   }, [params, setInput]);
 
-  useEffect(() => {
-    console.log(initialMessages);
-  }, [initialMessages]);
+  // useEffect(() => {
+  //   console.log(initialMessages);
+  // }, [initialMessages]);
 
-  useEffect(() => {
-    // if (!user?.id) return;
-    if (!isSignedIn || !user?.id || !idStr || localSession) return;
-  }, [
-    messages,
-    idStr,
-    user?.id,
-    isSignedIn,
-    localSession,
-    addMessagesToRemoteSession,
-  ]);
+  // useEffect(() => {
+  //   // if (!user?.id) return;
+  //   if (!isSignedIn || !user?.id || !idStr || localSession) return;
+  // }, [
+  //   messages,
+  //   idStr,
+  //   user?.id,
+  //   isSignedIn,
+  //   localSession,
+  //   addMessagesToRemoteSession,
+  // ]);
 
   useEffect(() => {
     if (!idStr) redirect(`/chat`);
@@ -124,11 +124,14 @@ export default function ChatEach() {
       const currentChat = getSession(idStr)?.messages;
       if (!currentChat) redirect(`/chat`);
 
-      if (!currentChat.length) return (() => setLoading(false))();
+      if (!currentChat?.length) return (() => setLoading(false))();
 
       (() => setInitialMessages(currentChat))();
       return (() => setLoading(false))();
     } else {
+      const currentSession = sessions.find((session) => session.id === idStr);
+      if (!currentSession) return redirect("/chat");
+      setInitialMessages(currentSession?.messages);
     }
   }, [id, localSession, idStr]);
 
