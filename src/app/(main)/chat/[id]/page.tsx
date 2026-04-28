@@ -12,6 +12,7 @@ import ChatUI from "@/components/ChatUI";
 import InputBar from "@/components/InputBar";
 import { RemoteMessage } from "@/lib/types";
 import { getSession, addMessagestoLocalSession } from "@/lib/utils";
+import { useStore } from "@/lib/store";
 
 export default function ChatEach() {
   const { id } = useParams();
@@ -21,6 +22,7 @@ export default function ChatEach() {
   const [loading, setLoading] = useState(true);
   const [error, _] = useState<string | null>(null);
   const [initChat, setInitChat] = useState(false);
+  const { localSession, setLocalSession } = useStore();
   const [initialMessages, setInitialMessages] = useState<Message[]>([]);
   const {
     input,
@@ -74,7 +76,7 @@ export default function ChatEach() {
 
   useEffect(() => {
     // if (!user?.id) return;
-    if (!isSignedIn || !user?.id || !idStr) return;
+    if (!isSignedIn || !user?.id || !idStr || localSession) return;
 
     (() =>
       addMessagesToRemoteSession(
@@ -109,6 +111,8 @@ export default function ChatEach() {
 
     (() => setInitialMessages(currentChat))();
     return (() => setLoading(false))();
+    } else {
+
     }
   }, [id]);
 

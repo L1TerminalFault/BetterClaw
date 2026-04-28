@@ -72,8 +72,13 @@ export const addMessage = async ({
   await messageObj.save();
 };
 
-export const addSession = async ({ id, clerkId, title }: RemoteSession) => {
-  const sessionObj = new Session({ id, clerkId, title });
+export const addSession = async ({
+  id,
+  clerkId,
+  title,
+  createdAt = Date.now(),
+}: RemoteSession) => {
+  const sessionObj = new Session({ id, clerkId, title, createdAt });
   await sessionObj.save();
 };
 

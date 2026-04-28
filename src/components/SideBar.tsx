@@ -15,16 +15,18 @@ import { useUser } from "@clerk/nextjs";
 
 import { getLocalSessions, deleteSession } from "@/lib/utils";
 import { Session } from "@/lib/types";
+import { useStore } from "@/lib/store";
 
 export default function SideBar() {
   const [expanded, setExpanded] = useState<boolean>(true);
   const [sessions, setSessions] = useState<Session[]>([]);
   const [updateSessions, setUpdateSessions] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [localSession, setLocalSession] = useState(false);
+  // const [localSession, setLocalSession] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const pathname = usePathname();
   const { isSignedIn } = useUser();
+  const { localSession, setLocalSession } = useStore();
 
   const handleClick = async (id: string) => {
     redirect(`/chat/${id}`);
@@ -102,11 +104,11 @@ export default function SideBar() {
             <div>
               Chats -{" "}
               <span className="text-xs text-white/40">
-                {isSignedIn ? "Remote Database" : "Local"}
+                {!localSession ? "Remote Database" : "Local"}
               </span>
             </div>
 	    <div
-	    onClick={() => setLocalSession(prev => !prev)}
+	    onClick={() => setLocalSession(!localSession)}
 	    className="transition-colors hover:bg-white/5 -translate-y-1 rounded-full">
             {!localSession ? (
               <LocalIcon
