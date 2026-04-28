@@ -70,6 +70,7 @@ export default function ChatEach() {
 
   useEffect(() => {
     if (!idStr) redirect(`/chat`);
+    alert(idStr)
 
     (() => {
       if (initText) {
@@ -128,6 +129,7 @@ export default function ChatEach() {
       return (() => setLoading(false))();
     } else {
       const currentSession = sessions.find((session) => session.id === idStr);
+      alert("no session")
       if (!currentSession) return redirect("/chat");
       (() => setInitialMessages(currentSession?.messages))();
       return (() => setLoading(false))();
