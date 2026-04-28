@@ -131,7 +131,6 @@ export default function ChatEach() {
       const currentSession = sessions.find((session) => session.id === idStr);
       // console.log("no session")
       if (!currentSession) return redirect("/chat");
-      console.log(currentSession)
       (() => setInitialMessages(currentSession?.messages))();
       return (() => setLoading(false))();
     }
