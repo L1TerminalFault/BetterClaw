@@ -105,7 +105,7 @@ export default function SideBar() {
                 {!localSession ? "Remote Database" : "Local"}
               </span>
             </div>
-            <div
+	    {isSignedIn ? <div
               onClick={() => setLocalSession(!localSession)}
               className="transition-colors hover:bg-white/5 -translate-y-1 rounded-full"
             >
@@ -120,7 +120,7 @@ export default function SideBar() {
                   //size={35}
                 />
               )}
-            </div>
+            </div> : null}
           </div>
 
           <div
